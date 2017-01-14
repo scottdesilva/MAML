@@ -14,7 +14,7 @@ class ThreadCapture(Thread):
                 # Creates a video stream and initializes the variables we need to analyze the frames
                 # (i.e. grabbed and frame). Stopped will be used to kill the thread when we press the
                 # exit key
-                self.stream = cv2.VideoCapture(1)
+                self.stream = cv2.VideoCapture(0)
                 (self.grabbed, self.frame) = self.stream.read()
                 self.stopped = False
 
@@ -31,7 +31,7 @@ class ThreadCapture(Thread):
                         (self.grabbed, self.frame) = self.stream.read()
                         gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 
-                        faces = self.faceCascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+                        faces = self.faceCascade.detectMultiScale(gray, 5, minNeighbors=1)
 
                         # Draw a rectangle around the faces
                         for (x, y, w, h) in faces:
