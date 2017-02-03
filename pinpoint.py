@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-class servo():
+class servo():                                                  #class defines all servo functions
 
         def __init__():
         
@@ -20,37 +20,22 @@ class servo():
 # desiredAngles are refernces to the current angle that the servos are at
 # get x,y from fast and angles from servox/sweep
 
-        def move(x, y, desiredAnglex, desiredAngley):
+        def move(x, y, desiredAnglex, desiredAngley):           #rotates the x and y axis servos to the requested angle
 
-                if ( (x - 260 > 0) and (240 - y > 0) ):
-                {
-                        desiredAnglex -= 2
-                        desiredAngley += 2
-                }
+                if ( x > 260 ): esiredAnglex = x - 2
 
-                if ( (240 - x > 0) and (240 - y > 0) ):
-                {
-                        desiredAnglex = x + 2
-                        desiredAngley = y + 2
-                }
-
-                if ( (240 - x > 0) and (y - 260 > 0) ):
-                {
-                        desiredAnglex = x + 2
-                        desiredAngley = y - 2
-                }
+                if ( x < 240 ): desiredAnglex = x + 2
                 
-                if ( (x - 260 > 0) and (y - 260 > 0) ):
-                {
-                        desiredAnglex = x - 2
-                        desiredAngley = y + 2
-                }
+                if ( y > 260 ): desiredAngley = y - 2
 
-                Dx=8.75/180.*(desiredAnglex)+2
-                pwmx.ChangeDutyCycle(Dx)
-                Dy=8.75/180.*(desiredAngley)+2
-                pwmy.ChangeDutyCycle(Dy)
+                if ( y < 240 ): desiredAngley = y + 2
+ 
 
-                pwmx.stop()
+                Dx=8.75/180.*(desiredAnglex)+2                  # determines the x-axis servo Magnetic field magnitude to be generated
+                pwmx.ChangeDutyCycle(Dx)                        # Magnetic field Magnitude is generated to move x-axis servo to desired location
+                Dy=8.75/180.*(desiredAngley)+2                  # determines the y-axis servo Magnetic field magnitude to be generated
+                pwmy.ChangeDutyCycle(Dy)                        # Magnetic field Magnitude is generated to move y-axis servo to desired location
+
+                pwmx.stop()                                     #Magnetic field is terminated for X and Y servos
                 pwmy.stop()
                 GPIO.cleanup()
